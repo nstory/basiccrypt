@@ -5,6 +5,7 @@ module.exports = (input) ->
   | \+|-|/|\* # arithmetic operators
   | =|<=|<>|<|>=|><|> # relative operators
   | PRINT|IF|GOTO|INPUT|LET|GOSUB|RETURN|CLEAR|LIST|RUN|END # statements
+  | THEN # other keywords
   | [A-Z] # variables
   | \(|\) # parens
   | "[^"]*" # strings

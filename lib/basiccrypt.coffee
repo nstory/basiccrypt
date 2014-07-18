@@ -1,6 +1,7 @@
 readline = require 'readline'
 parse = require './parse.js'
 lex = require './lex.js'
+lex_clean = require './lex_clean.js'
 jsify = require './jsify.js'
 
 print = (args) ->
@@ -13,11 +14,13 @@ rl = readline.createInterface
 rl.on 'line', (line) ->
   try
     tokens = lex line
-    tree = parse tokens
+    console.log "Tokens:  #{JSON.stringify(tokens)}"
+    cleaned = lex_clean tokens
+    console.log "Cleaned: #{JSON.stringify(cleaned)}"
+    tree = parse cleaned
+    console.log "Tree:    #{JSON.stringify(tree)}"
     js = jsify tree
-    console.log "Tokens: #{JSON.stringify(tokens)}"
-    console.log "Tree:   #{JSON.stringify(tree)}"
-    console.log "JS:     #{js}"
+    console.log "JS:      #{js}"
     eval(js)
   catch error
     console.log error
