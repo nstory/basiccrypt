@@ -44,12 +44,12 @@ module.exports = (tokens) ->
       when nextMatches /^\d+|[A-Z]$/
         consume()
       else
-        throw new Error("unexpected token \"#{peek()}\"")
+        unexpected()
 
   consume = (expected) ->
     token = tokens.shift()
-    if expected != undefined && expected != token
-      throw new Error("unexpected token \"#{token}\" expected \"#{expected}\"")
+    if expected? && expected != token
+      unexpected(expected)
     token
 
   peek = ->
@@ -58,10 +58,16 @@ module.exports = (tokens) ->
   nextMatches = (re) ->
     re.test(peek())
 
+  unexpected = (expected) ->
+    if expected?
+      throw new Error("unexpected token #{peek()} expected #{expected}")
+    else
+      throw new Error("unexpected token #{peek()}")
+
   # we mutate tokens, so, make a copy to be polite
   tokens = _.clone tokens
 
   tree = Statement()
   if tokens.length != 0
-    throw new Error("unexpected token \"#{peek()}\"")
+    unexpected()
   tree
