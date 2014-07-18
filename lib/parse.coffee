@@ -1,37 +1,50 @@
 ###
-E -> F (+|-) E
-F -> T ((*|/) T)*
-T -> '-'? [0-9]+ | '(' E ')'
+Statement -> "PRINT" Expression (',' Expression)*
+Expression -> Factor ((+|-) Factor)*
+Factor -> Term ((*|/) Term)*
+Term -> ('-'|'+')? ([0-9]+ | [A-Z] | '(' Expression ')')
 ###
 
 _ = require('underscore')
 
 module.exports = (tokens) ->
-    E = ->
-        left = F()
-        return left if peek() != '+' && peek() != '-'
-        op = consume()
-        right = E()
-        [op, left, right]
+    Statement = ->
+        if /^PRINT$/.test peek()
+            consume()
+            el = [Expression()]
+            while nextMatches /^,$/
+                consume ','
+                el.push consume()
+            return ['PRINT', el]
+        else
+            # temporary...
+            return Expression()
 
-    F = ->
-        left = T()
-        return left if peek() != '*' && peek() != '/'
-        op = consume()
-        right = T()
-        [op, left, right]
+    Expression = ->
+        current = Factor()
+        while nextMatches /^\+|-$/
+            current = [consume(), current, Factor()]
+        current
 
-    T = ->
-        if peek() == '-'
-            return [consume('-'), T()]
-        if peek() == '('
-            consume('(')
-            e = E()
-            consume(')')
-            return e
-        if /^\d+$/.test peek()
-            return consume()
-        throw "unexpected token \"#{peek()}\""
+    Factor = ->
+        current = Term()
+        while nextMatches /^\*|\/$/
+            current = [consume(), current, Term()]
+        current
+
+    Term = ->
+        switch
+            when nextMatches /^-|\+$/
+                [consume(), Term()]
+            when nextMatches /^\($/
+                consume '('
+                e = Expression()
+                consume ')'
+                e
+            when nextMatches /^\d+|[A-Z]$/
+                consume()
+            else
+                throw "unexpected token \"#{peek()}\""
 
     consume = (expected) ->
         token = tokens.shift()
@@ -42,7 +55,13 @@ module.exports = (tokens) ->
     peek = ->
         tokens[0]
 
+    nextMatches = (re) ->
+        re.test(peek())
+
     # we mutate tokens, so, make a copy to be polite
     tokens = _.clone tokens
 
-    E()
+    tree = Statement()
+    if tokens.length != 0
+        throw "unexpected token \"#{peek()}\""
+    tree
