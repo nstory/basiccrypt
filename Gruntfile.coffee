@@ -24,6 +24,14 @@ module.exports = (grunt) ->
 
     coffeelint:
       build:
+        options:
+          'arrow_spacing': {level: 'error'}
+          'line_endings': {level: 'error'}
+          'missing_fat_arrows': {level: 'error'}
+          'newlines_after_classes': {level: 'error'}
+          'no_empty_functions': {level: 'error'}
+          'no_empty_param_list': {level: 'error'}
+          'no_stand_alone_at': {level: 'error'}
         files: [
           src: ['lib/*.coffee', 'Gruntfile.coffee', 'specs/*.coffee']
         ]
@@ -43,4 +51,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-jasmine-node'
 
+    grunt.registerTask 'lint', ['coffeelint']
     grunt.registerTask 'test', ['clean', 'coffee', 'jasmine_node']
