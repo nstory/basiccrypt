@@ -44,6 +44,9 @@ module.exports = (grunt) ->
       test:
         files: ['Gruntfile.js', 'lib/**/*', 'specs/**/*']
         tasks: ['test']
+      lint:
+        files: ['Gruntfile.js', 'lib/**/*', 'specs/**/*']
+        tasks: ['lint']
 
     grunt.loadNpmTasks 'grunt-coffeelint'
     grunt.loadNpmTasks 'grunt-contrib-clean'

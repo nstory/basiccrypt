@@ -9,16 +9,24 @@ _ = require('underscore')
 
 module.exports = (tokens) ->
   Statement = ->
-    if /^PRINT$/.test peek()
-      consume()
-      el = [Expression()]
-      while nextMatches /^,$/
-        consume ','
-        el.push consume()
-      return ['PRINT', el]
-    else
-      # temporary...
-      return Expression()
+    switch
+      when nextMatches /^PRINT$/
+        consume()
+        el = [Expression()]
+        while nextMatches /^,$/
+          consume ','
+          el.push Expression()
+        ['PRINT', el]
+      when nextMatches /^IF$/
+        consume()
+        left = Expression()
+        op = consume(/^(=|<|<=|<>|>|>=|><)$/)
+        right = Expression()
+        consume('THEN')
+        stmt = Statement()
+        ['IF', [op, left, right], stmt]
+      else
+        unexpected()
 
   Expression = ->
     current = Factor()
@@ -48,7 +56,9 @@ module.exports = (tokens) ->
 
   consume = (expected) ->
     token = tokens.shift()
-    if expected? && expected != token
+    if _.isString(expected) and expected != token
+      unexpected(expected)
+    else if _.isRegExp(expected) and not expected.test(token)
       unexpected(expected)
     token
 
