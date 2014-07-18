@@ -17,6 +17,7 @@ describe 'lex', ->
     'PRINTIFGOTOINPUTLET': ['PRINT', 'IF', 'GOTO', 'INPUT', 'LET']
     'GOSUBRETURNCLEAR': ['GOSUB', 'RETURN', 'CLEAR']
     'LISTRUNEND': ['LIST', 'RUN', 'END']
+    ',': [',']
   }
 
   for input, expected of examples

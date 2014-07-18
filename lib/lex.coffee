@@ -8,6 +8,7 @@ module.exports = (input) ->
   | [A-Z] # variables
   | \(|\) # parens
   | "[^"]*" # strings
+  | , # comma
   )///
 
   tokens = while (matches = re.exec(input)) != null
