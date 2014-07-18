@@ -65,10 +65,20 @@ describe "parse", ->
         in: ['PRINT', 'A', ',', '4', '+', '5'],
         out: ['PRINT', ['A', ['+', '4', '5']]]
       }
+      {in: ['PRINT', '"Hello, World!"'], out: ['PRINT', ['"Hello, World!"']]}
       {
         in: ['IF', 'A', '=', '4', 'THEN', 'PRINT', '5'],
         out: ['IF', ['=', 'A', '4'], ['PRINT', ['5']]]
-      },
+      }
+      {in: ['GOTO', '42'], out: ['GOTO', '42']}
+      {in: ['INPUT', 'A', ',', 'B'], out: ['INPUT', ['A', 'B']]}
+      {in: ['LET', 'A', '=', '4'], out: ['LET', 'A', '4']}
+      {in: ['GOSUB', '42'], out: ['GOSUB', '42']}
+      {in: ['RETURN'], out: ['RETURN']}
+      {in: ['CLEAR'], out: ['CLEAR']}
+      {in: ['LIST'], out: ['LIST']}
+      {in: ['RUN'], out: ['RUN']}
+      {in: ['END'], out: ['END']}
     ]
 
     testExample ex for ex in examples

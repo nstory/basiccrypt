@@ -11,22 +11,63 @@ module.exports = (tokens) ->
   Statement = ->
     switch
       when nextMatches /^PRINT$/
-        consume()
-        el = [Expression()]
+        consume 'PRINT'
+        exprList = [ExpressionOrString()]
         while nextMatches /^,$/
           consume ','
-          el.push Expression()
-        ['PRINT', el]
+          exprList.push ExpressionOrString()
+        ['PRINT', exprList]
       when nextMatches /^IF$/
-        consume()
+        consume 'IF'
         left = Expression()
         op = consume(/^(=|<|<=|<>|>|>=|><)$/)
         right = Expression()
-        consume('THEN')
+        consume 'THEN'
         stmt = Statement()
         ['IF', [op, left, right], stmt]
+      when nextMatches /^GOTO$/
+        consume 'GOTO'
+        ['GOTO', Expression()]
+      when nextMatches /^INPUT$/
+        consume 'INPUT'
+        varList = [consume /^[A-Z]$/]
+        while nextMatches /^,$/
+          consume ','
+          varList.push(consume /^[A-Z]$/)
+        ['INPUT', varList]
+      when nextMatches /^LET$/
+        consume 'LET'
+        name = consume /^[A-Z]$/
+        consume '='
+        expr = Expression()
+        ['LET', name, expr]
+      when nextMatches /^GOSUB$/
+        consume 'GOSUB'
+        ['GOSUB', Expression()]
+      when nextMatches /^RETURN$/
+        consume 'RETURN'
+        ['RETURN']
+      when nextMatches /^CLEAR$/
+        consume 'CLEAR'
+        ['CLEAR']
+      when nextMatches /^LIST$/
+        consume 'LIST'
+        ['LIST']
+      when nextMatches /^RUN$/
+        consume 'RUN'
+        ['RUN']
+      when nextMatches /^END$/
+        consume 'END'
+        ['END']
       else
         unexpected()
+
+  ExpressionOrString = ->
+    switch
+      when nextMatches /^"/
+        consume()
+      else
+        Expression()
 
   Expression = ->
     current = Factor()
