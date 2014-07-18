@@ -14,7 +14,9 @@ describe 'lex', ->
     'ZXY': ['Z', 'X', 'Y']
     '()': ['(', ')']
     '"Hello, World!"': ['"Hello, World!"']
-    # 'PRINT': ['PRINT']
+    'PRINTIFGOTOINPUTLET': ['PRINT', 'IF', 'GOTO', 'INPUT', 'LET']
+    'GOSUBRETURNCLEAR': ['GOSUB', 'RETURN', 'CLEAR']
+    'LISTRUNEND': ['LIST', 'RUN', 'END']
   }
 
   for input, expected of examples

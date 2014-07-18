@@ -4,6 +4,7 @@ module.exports = (input) ->
   | \d+ # numbers (integers)
   | \+|-|/|\* # arithmetic operators
   | =|<=|<>|<|>=|><|> # relative operators
+  | PRINT|IF|GOTO|INPUT|LET|GOSUB|RETURN|CLEAR|LIST|RUN|END # statements
   | [A-Z] # variables
   | \(|\) # parens
   | "[^"]*" # strings
