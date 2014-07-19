@@ -5,7 +5,7 @@ describe 'jsify', ->
     {in: ['PRINT', ['42']], out: 'print([42])'}
     {in: ['PRINT', [['+', '4', '5']]], out: 'print([(4+5)])'}
     {in: ['PRINT', [['/', '4', '5']]], out: 'print([(4/5)])'}
-    {in: ['PRINT', ['A', 'B']], out: 'print([A,B])'}
+    {in: ['PRINT', ['A', 'B']], out: 'print([variables.A,variables.B])'}
     {
       in: ['IF', ['=', '1', '1'], ['PRINT', ['42']]]
       out: 'if((1===1)){print([42])}'
@@ -19,7 +19,7 @@ describe 'jsify', ->
       in: ['INPUT', ['A', 'B']]
       out: '(function(_list){A=_list[0];B=_list[1];})(input())'
     }
-    {in: ['LET', 'A', '42'], out: 'A=42'}
+    {in: ['LET', 'A', '42'], out: 'variables.A=42'}
     {in: ['GOSUB', '42'], out: 'gosub(42)'}
     {in: ['RETURN'], out: '_return()'}
     {in: ['CLEAR'], out: 'clear()'}

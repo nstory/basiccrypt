@@ -4,7 +4,11 @@ module.exports = (tree) ->
   compile = (node) ->
     switch
       when _.isString node
-        node
+        switch
+          when /^[A-Z]$/.test node
+            "variables.#{node}"
+          else
+            node
       when _.isArray node
         cmd = node[0]
         switch
@@ -25,7 +29,7 @@ module.exports = (tree) ->
             stmts = ("#{name}=_list[#{idx}];" for name, idx in node[1])
             "(function(_list){#{stmts.join('')}})(input())"
           when cmd == "LET"
-            "#{node[1]}=#{compile(node[2])}"
+            "variables.#{node[1]}=#{compile(node[2])}"
           when cmd == "RETURN"
             "_return()"
           else
