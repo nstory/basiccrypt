@@ -4,7 +4,7 @@ module.exports = (input) ->
   | \d+ # numbers (integers)
   | \+|-|/|\* # arithmetic operators
   | =|<=|<>|<|>=|><|> # relative operators
-  | PRINT|IF|GOTO|INPUT|LET|GOSUB|RETURN|CLEAR|LIST|RUN|END # statements
+  | PRINT|IF|GOTO|INPUT|LET|GOSUB|RETURN|CLEAR|LIST|RUN|END|EVAL # statements
   | PRI | PR # statement abberviations
   | RND # function
   | THEN # other keywords

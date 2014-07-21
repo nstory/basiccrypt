@@ -67,6 +67,13 @@ module.exports = (tokens) ->
       when nextMatches /^END$/
         consume 'END'
         ['END']
+      when nextMatches /^EVAL$/
+        consume 'EVAL'
+        exprList = [ExpressionOrString()]
+        while nextMatches /^,$/
+          consume ','
+          exprList.push ExpressionOrString()
+        ['EVAL', exprList]
       else
         unexpected()
 

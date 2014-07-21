@@ -17,7 +17,7 @@ describe 'lex', ->
     '"Hello, World!"': ['"Hello, World!"']
     'PRINTIFGOTOINPUTLET': ['PRINT', 'IF', 'GOTO', 'INPUT', 'LET']
     'GOSUBRETURNCLEAR': ['GOSUB', 'RETURN', 'CLEAR']
-    'LISTRUNEND': ['LIST', 'RUN', 'END']
+    'LISTRUNENDEVAL': ['LIST', 'RUN', 'END', 'EVAL']
     'THEN': ['THEN']
     ',;': [',', ';']
     'PRPRI': ['PR', 'PRI']

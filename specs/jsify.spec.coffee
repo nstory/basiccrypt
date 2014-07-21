@@ -27,6 +27,7 @@ describe 'jsify', ->
     {in: ['RUN'], out: 'run()'}
     {in: ['END'], out: 'end();break'}
     {in: ['PRINT', [['RND', '10']]], out: 'print([rnd(10)])'}
+    {in: ['EVAL', ['"FOO"', ['+', '5', '4']]], out: 'eval("FOO"+((5+4)|0))'}
   ]
 
   for example in examples

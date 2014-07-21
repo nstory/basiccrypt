@@ -67,3 +67,9 @@ describe 'compile', ->
     `eval(code)`
     expect(global.C).toBe 1
     expect(global.D).toBe 2
+
+  it 'supports EVAL', ->
+    foobar = undefined
+    code = compile '10 EVAL "foobar=",4*5'
+    `eval(code)`
+    expect(foobar).toBe 20

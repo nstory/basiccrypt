@@ -83,6 +83,7 @@ describe "parse", ->
       {in: ['LIST'], out: ['LIST']}
       {in: ['RUN'], out: ['RUN']}
       {in: ['END'], out: ['END']}
+      {in: ['EVAL', '"foo"', ',', '42'], out: ['EVAL', ['"foo"', '42']]}
     ]
 
     testExample ex for ex in examples

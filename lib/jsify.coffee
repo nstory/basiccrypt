@@ -41,6 +41,9 @@ module.exports = (tree) ->
             "gosub(#{compile(node[1])});break"
           when cmd == "END"
             "end();break"
+          when cmd == "EVAL"
+            exprList = (compile expr for expr in node[1])
+            "eval(#{exprList.join('+')})"
           else
             # this default works for other statements
             args = (compile n for n in node.slice(1))
