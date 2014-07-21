@@ -3,12 +3,15 @@ _ = require('underscore')
 module.exports = (tree) ->
   compile = (node) ->
     switch
+      # a string, number, or variable
       when _.isString node
         switch
           when /^[A-Z]$/.test node
             "variables.#{node}"
           else
             node
+
+      # a statement or expression
       when _.isArray node
         cmd = node[0]
         switch
