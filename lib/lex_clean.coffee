@@ -7,6 +7,8 @@ module.exports = (tokens) ->
     switch
       when /^PR/.test token
         'PRINT'
+      when /^[a-z]$/.test token
+        token.toUpperCase()
       else
         token
 

@@ -26,6 +26,7 @@ describe 'jsify', ->
     {in: ['LIST'], out: 'list()'}
     {in: ['RUN'], out: 'run()'}
     {in: ['END'], out: 'end();break'}
+    {in: ['PRINT', [['RND', '10']]], out: 'print([rnd(10)])'}
   ]
 
   for example in examples

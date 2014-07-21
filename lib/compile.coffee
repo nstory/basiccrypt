@@ -31,7 +31,16 @@ var list = function() {
 };
 var input = function() {
   var line = readlineSync.question();
-  return line.split(/ +/);
+  var arr = line.split(/( |,)+/);
+  for (var i = 0; i < arr.length; i++) {
+    if (/^[A-Z]$/.test(arr[i])) {
+      arr[i] = variables[arr[i]];
+    }
+  }
+  return arr;
+};
+var rnd = function(limit) {
+  return Math.floor(Math.random()*limit);
 };
 
 // STATE
@@ -54,15 +63,26 @@ case 0:
 
 module.exports = (program) ->
   # convert the BASIC program into an array of JS statements
-  js_statements = for line in program.split "\n"
+  js_statements = for line, idx in program.split "\n"
+    # skip empty lines
     continue if line.trim() == ""
+
+    # separate the line number from the statement
     line_number = +(/^\d+/.exec line)[0]
     line_statement = line.replace(/^\d+/, '')
+
+    # skip commnets
     continue if /^ *REM/.test line_statement
-    tokens = lex line_statement
-    cleaned = lex_clean tokens
-    tree = parse cleaned
-    js = jsify tree
+
+    # lex, parse, compile
+    try
+      tokens = lex line_statement
+      cleaned = lex_clean tokens
+      tree = parse cleaned
+      js = jsify tree
+    catch error
+      throw new Error("line #{idx+1}: #{error.description}")
+
     {line_number: line_number, statement: js}
 
   # for every line N, there must also be a line N+1 (even if

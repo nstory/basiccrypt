@@ -12,6 +12,7 @@ describe 'lex', ->
     '< <= <>': ['<', ' ', '<=', ' ', '<>']
     '> >= ><': ['>', ' ', '>=', ' ', '><']
     'ZXY': ['Z', 'X', 'Y']
+    'zxy': ['z', 'x', 'y']
     '()': ['(', ')']
     '"Hello, World!"': ['"Hello, World!"']
     'PRINTIFGOTOINPUTLET': ['PRINT', 'IF', 'GOTO', 'INPUT', 'LET']
@@ -20,6 +21,7 @@ describe 'lex', ->
     'THEN': ['THEN']
     ',;': [',', ';']
     'PRPRI': ['PR', 'PRI']
+    'RND': ['RND']
   }
 
   for input, expected of examples

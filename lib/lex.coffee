@@ -6,8 +6,10 @@ module.exports = (input) ->
   | =|<=|<>|<|>=|><|> # relative operators
   | PRINT|IF|GOTO|INPUT|LET|GOSUB|RETURN|CLEAR|LIST|RUN|END # statements
   | PRI | PR # statement abberviations
+  | RND # function
   | THEN # other keywords
   | [A-Z] # variables
+  | [a-z] # lower-case variables
   | \(|\) # parens
   | "[^"]*" # strings
   | ,|; # list sperators
@@ -20,6 +22,6 @@ module.exports = (input) ->
     matches[0]
 
   if input.length
-    throw new Error("unable to parse remainder of input: #{input}")
+    throw new Error("unable to lex remainder of input: #{input}")
 
   tokens

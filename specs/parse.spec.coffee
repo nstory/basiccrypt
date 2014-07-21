@@ -28,14 +28,15 @@ describe "parse", ->
       {in: ['12', '/', '2', '/', '3'], out: ['/', ['/', '12', '2'], '3']}
       {in: ['+', '4'], out: ['+', '4']}
       {in: ['A', '+', 'Z'], out:['+', 'A', 'Z']}
+      {in: ['RND', '(', '10', ')'], out: ['RND', '10']}
       {in: ['(', '4', '+', '4'], throws: true}
       {in: ['+'], throws: true}
       {in: ['5', '5'], throws: true}
     ]
     for example in examples
       printExample =
-        in: ['PRINT'].concat(example.in)
-        out: ['PRINT', [example.out]]
+        in: ['LET', 'A', '='].concat(example.in)
+        out: ['LET', 'A', example.out]
         throws: example.throws
       testExample printExample
 
@@ -60,14 +61,15 @@ describe "parse", ->
   describe "statements", ->
     examples = [
       {in: ['PRINT', '4', '+', '5'], out: ['PRINT', [['+', '4', '5']]]}
-      {in: ['PRINT', 'A', ',', 'B'], out: ['PRINT', ['A', 'B']]}
+      {in: ['PRINT', 'A', ',', 'B'], out: ['PRINT', ['A', '"\t"', 'B']]}
       {
         in: ['PRINT', 'A', ',', '4', '+', '5'],
-        out: ['PRINT', ['A', ['+', '4', '5']]]
+        out: ['PRINT', ['A', '"\t"', ['+', '4', '5']]]
       }
       {in: ['PRINT', '"Hello, World!"'], out: ['PRINT', ['"Hello, World!"']]}
       {in: ['PRINT'], out: ['PRINT', []]}
       {in: ['PRINT', '4', ';', '5'], out: ['PRINT', ['4', '5']]}
+      {in: ['PRINT', '4', ';'], out: ['PRINT', ['4']]}
       {
         in: ['IF', 'A', '=', '4', 'THEN', 'PRINT', '5'],
         out: ['IF', ['=', 'A', '4'], ['PRINT', ['5']]]

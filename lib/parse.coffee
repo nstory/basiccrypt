@@ -2,7 +2,7 @@
 Statement -> "PRINT" Expression (',' Expression)*
 Expression -> Factor ((+|-) Factor)*
 Factor -> Term ((*|/) Term)*
-Term -> ('-'|'+')? ([0-9]+ | [A-Z] | '(' Expression ')')
+Term -> ('-'|'+')? ([0-9]+ | [A-Z] | '(' Expression ')') | 'RND' '(' Expression ')'
 ###
 
 _ = require('underscore')
@@ -12,11 +12,19 @@ module.exports = (tokens) ->
     switch
       when nextMatches /^PRINT$/
         consume 'PRINT'
-        exprList = if peek() then [ExpressionOrString()] else []
-        while nextMatches /^(,|;)$/
-          consume()
-          exprList.push ExpressionOrString()
-        ['PRINT', exprList]
+        exprList = while peek()
+          switch
+            when peek() == ','
+              consume ','
+              '"\t"'
+            when peek() == ';'
+              consume ';'
+              null
+            when /^"/.test peek()
+              consume()
+            else
+              Expression()
+        ['PRINT', (e for e in exprList when e?)]
       when nextMatches /^IF$/
         consume 'IF'
         left = Expression()
@@ -83,15 +91,21 @@ module.exports = (tokens) ->
 
   Term = ->
     switch
-      when nextMatches /^-|\+$/
+      when nextMatches /(^-|\+)$/
         [consume(), Term()]
       when nextMatches /^\($/
         consume '('
         e = Expression()
         consume ')'
         e
-      when nextMatches /^\d+|[A-Z]$/
+      when nextMatches /^(\d+|[A-Z])$/
         consume()
+      when nextMatches /^RND$/
+        consume 'RND'
+        consume '('
+        limit = consume /^\d+$/
+        consume ')'
+        ['RND', limit]
       else
         unexpected()
 
