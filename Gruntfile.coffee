@@ -32,6 +32,7 @@ module.exports = (grunt) ->
           'no_empty_functions': {level: 'error'}
           'no_empty_param_list': {level: 'error'}
           'no_stand_alone_at': {level: 'error'}
+          'no_backticks': {level: 'ignore'}
         files: [
           src: ['lib/*.coffee', 'Gruntfile.coffee', 'specs/*.coffee']
         ]

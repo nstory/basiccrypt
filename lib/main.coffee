@@ -5,7 +5,7 @@ compile = require './compile.js'
 
 # set up global functions (for interpreter)
 global = `(function() {return this;})()`
-global.print = (args...)->
+global.print = (args...) ->
   console.log args...
 global.input = ->
   readlineSync.question()

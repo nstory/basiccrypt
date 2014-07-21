@@ -17,7 +17,8 @@ describe 'jsify', ->
     {in: ['GOTO', '42'], out: 'goto(42);break'}
     {
       in: ['INPUT', ['A', 'B']]
-      out: '(function(_list){variables.A=_list[0];variables.B=_list[1];})(input())'
+      out:
+        '(function(_list){variables.A=_list[0];variables.B=_list[1];})(input())'
     }
     {in: ['LET', 'A', '42'], out: 'variables.A=42'}
     {in: ['GOSUB', '42'], out: 'gosub(42);break'}

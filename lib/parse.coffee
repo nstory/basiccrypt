@@ -2,7 +2,8 @@
 Statement -> "PRINT" Expression (',' Expression)*
 Expression -> Factor ((+|-) Factor)*
 Factor -> Term ((*|/) Term)*
-Term -> ('-'|'+')? ([0-9]+ | [A-Z] | '(' Expression ')') | 'RND' '(' Expression ')'
+Term -> ('-'|'+')? ([0-9]+ | [A-Z] | '(' Expression ')')
+         | 'RND' '(' Expression ')'
 ###
 
 _ = require('underscore')

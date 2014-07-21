@@ -8,8 +8,7 @@ module.exports = (input) ->
   | PRI | PR # statement abberviations
   | RND # function
   | THEN # other keywords
-  | [A-Z] # variables
-  | [a-z] # lower-case variables
+  | [A-Za-z] # variables
   | \(|\) # parens
   | "[^"]*" # strings
   | ,|; # list sperators
