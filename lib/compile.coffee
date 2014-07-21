@@ -88,7 +88,7 @@ module.exports = (program) ->
     {line_number: line_number, statement: js}
 
   # for every line N, there must also be a line N+1 (even if
-  # it's blank. this way RETURN statements can jump to the
+  # it's blank). this way RETURN statements can jump to the
   # next line. the line below assumes that _.uniq favors the
   # earlier element
   js_statements = _.uniq js_statements.concat(

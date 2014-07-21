@@ -12,7 +12,7 @@ global.input = ->
 
 program
   .usage('[options] <file>')
-  .option '-c, --compile', 'compile to JavaScript and write to stdout'
+  .option '-p, --print', 'compile to JavaScript and write to stdout'
   .parse process.argv
 
 if program.args.length isnt 1
@@ -23,7 +23,7 @@ contents = fs.readFileSync program.args[0], {encoding: 'utf-8'}
 compiled = compile(contents)
 
 switch
-  when program.compile
+  when program.print
     console.log compiled
   else
     `eval(compiled)`
