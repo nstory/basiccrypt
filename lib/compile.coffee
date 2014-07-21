@@ -73,7 +73,7 @@ module.exports = (program) ->
     line_number = +(/^\d+/.exec line)[0]
     line_statement = line.replace(/^\d+/, '')
 
-    # skip commnets
+    # skip comments
     continue if /^ *REM/.test line_statement
 
     # lex, parse, compile
@@ -89,10 +89,11 @@ module.exports = (program) ->
 
   # for every line N, there must also be a line N+1 (even if
   # it's blank. this way RETURN statements can jump to the
-  # next line
+  # next line. the line below assumes that _.uniq favors the
+  # earlier element
   js_statements = _.uniq js_statements.concat(
     ({line_number:stmt.line_number+1, statement: ''} for stmt in js_statements)
-  )
+  ), false, (stmt) -> stmt.line_number
 
   js_statements.sort (a,b) -> a.line_number - b.line_number
 
