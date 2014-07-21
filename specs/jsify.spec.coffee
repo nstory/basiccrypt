@@ -3,8 +3,8 @@ jsify = require '../lib/jsify.js'
 describe 'jsify', ->
   examples = [
     {in: ['PRINT', ['42']], out: 'print([42])'}
-    {in: ['PRINT', [['+', '4', '5']]], out: 'print([(4+5)])'}
-    {in: ['PRINT', [['/', '4', '5']]], out: 'print([(4/5)])'}
+    {in: ['PRINT', [['+', '4', '5']]], out: 'print([((4+5)|0)])'}
+    {in: ['PRINT', [['/', '4', '5']]], out: 'print([((4/5)|0)])'}
     {in: ['PRINT', ['A', 'B']], out: 'print([variables.A,variables.B])'}
     {
       in: ['IF', ['=', '1', '1'], ['PRINT', ['42']]]

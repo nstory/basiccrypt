@@ -49,6 +49,11 @@ describe 'compile', ->
     code = compile "10 LIST"
     `eval(code)`
 
+  it 'does integer arithmetic', ->
+    code = compile "10 LET A = 5/2"
+    `eval(code)`
+    expect(global.A).toBe 2
+
   xit 'supports INPUT', ->
     undefined
 

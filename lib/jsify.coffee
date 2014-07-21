@@ -16,7 +16,7 @@ module.exports = (tree) ->
         cmd = node[0]
         switch
           when /^(\+|-|\/|\*|>|>=|<|<=)$/.test cmd
-            "(#{compile(node[1])}#{cmd}#{compile(node[2])})"
+            "((#{compile(node[1])}#{cmd}#{compile(node[2])})|0)"
           when cmd == "="
             "(#{compile(node[1])}===#{compile(node[2])})"
           when /^<>|><#/.test cmd
