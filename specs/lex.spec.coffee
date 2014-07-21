@@ -18,7 +18,8 @@ describe 'lex', ->
     'GOSUBRETURNCLEAR': ['GOSUB', 'RETURN', 'CLEAR']
     'LISTRUNEND': ['LIST', 'RUN', 'END']
     'THEN': ['THEN']
-    ',': [',']
+    ',;': [',', ';']
+    'PRPRI': ['PR', 'PRI']
   }
 
   for input, expected of examples

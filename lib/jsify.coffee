@@ -34,7 +34,13 @@ module.exports = (tree) ->
           when cmd == "LET"
             "variables.#{node[1]}=#{compile(node[2])}"
           when cmd == "RETURN"
-            "_return()"
+            "_return();break"
+          when cmd == "GOTO"
+            "goto(#{compile(node[1])});break"
+          when cmd == "GOSUB"
+            "gosub(#{compile(node[1])});break"
+          when cmd == "END"
+            "end();break"
           else
             # this default works for other statements
             args = (compile n for n in node.slice(1))

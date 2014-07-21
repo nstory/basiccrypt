@@ -12,9 +12,9 @@ module.exports = (tokens) ->
     switch
       when nextMatches /^PRINT$/
         consume 'PRINT'
-        exprList = [ExpressionOrString()]
-        while nextMatches /^,$/
-          consume ','
+        exprList = if peek() then [ExpressionOrString()] else []
+        while nextMatches /^(,|;)$/
+          consume()
           exprList.push ExpressionOrString()
         ['PRINT', exprList]
       when nextMatches /^IF$/

@@ -66,6 +66,8 @@ describe "parse", ->
         out: ['PRINT', ['A', ['+', '4', '5']]]
       }
       {in: ['PRINT', '"Hello, World!"'], out: ['PRINT', ['"Hello, World!"']]}
+      {in: ['PRINT'], out: ['PRINT', []]}
+      {in: ['PRINT', '4', ';', '5'], out: ['PRINT', ['4', '5']]}
       {
         in: ['IF', 'A', '=', '4', 'THEN', 'PRINT', '5'],
         out: ['IF', ['=', 'A', '4'], ['PRINT', ['5']]]

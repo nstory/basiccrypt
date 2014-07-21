@@ -3,6 +3,7 @@ describe 'lex_clean', ->
 
   examples = [
     {in: ['PRINT', ' ', '42'], out: ['PRINT', '42']}
+    {in: ['PR', 'PRI'], out: ['PRINT', 'PRINT']}
   ]
 
   for example in examples

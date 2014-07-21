@@ -1,4 +1,4 @@
-describe 'env', ->
+xdescribe 'env', ->
   env = null
   output = null
 
