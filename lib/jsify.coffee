@@ -29,7 +29,7 @@ module.exports = (tree) ->
             exprList = (compile expr for expr in node[1])
             "print([#{exprList.join(',')}])"
           when cmd == "INPUT"
-            stmts = ("#{name}=_list[#{idx}];" for name, idx in node[1])
+            stmts = ("variables.#{name}=_list[#{idx}];" for name, idx in node[1])
             "(function(_list){#{stmts.join('')}})(input())"
           when cmd == "LET"
             "variables.#{node[1]}=#{compile(node[2])}"

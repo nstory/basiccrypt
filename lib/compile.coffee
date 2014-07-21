@@ -6,11 +6,10 @@ lex_clean = require './lex_clean.js'
 jsify = require './jsify.js'
 
 template = """
-var readlineSync = require('readline-sync');
-
+(function() {
 // SUPPORT FUNCTIONS
 var print = function(args) {
-  console.log.apply(console, args);
+  variables.print(args.join(""));
 };
 var goto = function(destination) {
   ip = destination;
@@ -30,11 +29,13 @@ var clear = function() {
 var list = function() {
 };
 var input = function() {
-  var line = readlineSync.question();
-  var arr = line.split(/( |,)+/);
+  var line = variables.input();
+  var arr = line.split(/ +/);
   for (var i = 0; i < arr.length; i++) {
     if (/^[A-Z]$/.test(arr[i])) {
       arr[i] = variables[arr[i]];
+    } else {
+      arr[i] = +arr[i];
     }
   }
   return arr;
@@ -59,6 +60,7 @@ case 0:
       throw new Error("Jumped to invalid line number");
   }
 }
+})();
 """
 
 module.exports = (program) ->

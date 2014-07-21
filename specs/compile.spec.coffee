@@ -7,6 +7,8 @@ describe 'compile', ->
   beforeEach ->
     global.A = undefined
     global.B = undefined
+    global.print = jasmine.createSpy('print')
+    global.input = jasmine.createSpy('input')
 
   it 'allows trailing newlines', ->
     code = compile "10 LET A = 42\n"
@@ -25,11 +27,10 @@ describe 'compile', ->
     expect(global.A).toBe undefined
     expect(global.B).toBe 43
 
-  it 'supports PRINT using console.log', ->
-    spyOn(console, 'log')
-    code = compile '10 PRINT "Hello, World!"'
+  it 'supports PRINT using global.print', ->
+    code = compile '10 PRINT "Hello, "; "World!"'
     `eval(code)`
-    expect(console.log).toHaveBeenCalledWith "Hello, World!"
+    expect(global.print).toHaveBeenCalledWith "Hello, World!"
 
   it 'supports END', ->
     code = compile "10 LET A = 42\n20 END\n30 LET A = 43"
@@ -54,6 +55,15 @@ describe 'compile', ->
     `eval(code)`
     expect(global.A).toBe 2
 
-  xit 'supports INPUT', ->
-    undefined
+  it 'supports INPUT using global.input', ->
+    global.input.andReturn "42"
+    code = compile "10 INPUT A"
+    `eval(code)`
+    expect(global.A).toBe 42
 
+  it 'supports letter input', ->
+    global.input.andReturn "A B"
+    code = compile "10 LET A = 1\n20 LET B = 2\n30 INPUT C,D"
+    `eval(code)`
+    expect(global.C).toBe 1
+    expect(global.D).toBe 2
