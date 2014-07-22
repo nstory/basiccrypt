@@ -1,3 +1,6 @@
+# compile() takes a BASIC program (as a string) and converts it
+# into a Javascript program; this function leverages lex, parse, etc.
+
 _ = require 'underscore'
 
 parse = require './parse.js'

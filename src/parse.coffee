@@ -1,4 +1,9 @@
+# parse() takes an array of tokens created by lex.coffee and converts
+# those tokens into an AST tree (represented as nested arrays)
+
 ###
+GRAMMAR (incomplete):
+
 Statement -> "PRINT" Expression (',' Expression)*
 Expression -> Factor ((+|-) Factor)*
 Factor -> Term ((*|/) Term)*

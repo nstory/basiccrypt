@@ -1,3 +1,6 @@
+# This is the entry point for command-line invocations of
+# basiccrypt.
+
 fs = require 'fs'
 program = require 'commander'
 readlineSync = require 'readline-sync'
