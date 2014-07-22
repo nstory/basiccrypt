@@ -1,7 +1,7 @@
 module.exports = (grunt) ->
   grunt.initConfig
     clean:
-      build: ['build']
+      build: ['build', 'lib']
 
     coffee:
       options:
@@ -12,14 +12,15 @@ module.exports = (grunt) ->
           ext: '.js'
           cwd: 'src/'
           src: ['*.coffee']
-          dest: 'build/'
+          dest: 'lib/'
         ]
       specs:
         files: [
           expand: true
           ext: '.js'
+          cwd: 'specs/'
           extDot: 'last'
-          src: ['specs/*.coffee']
+          src: ['*.coffee']
           dest: 'build/'
         ]
 
@@ -39,7 +40,7 @@ module.exports = (grunt) ->
         ]
 
     jasmine_node:
-      build: ['build/specs/']
+      build: ['build']
 
     watch:
       options: {atBegin: true}
