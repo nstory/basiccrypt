@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "./build/lib/basiccrypt.coffee",
   "bin": {
-      "basiccrypt": "./build/lib/cli.js"
+      "basiccrypt": "./bin/cli.js"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

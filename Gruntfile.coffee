@@ -6,11 +6,12 @@ module.exports = (grunt) ->
     coffee:
       options:
         sourceMap: true
-      lib:
+      src:
         files: [
           expand: true
           ext: '.js'
-          src: ['lib/*.coffee']
+          cwd: 'src/'
+          src: ['*.coffee']
           dest: 'build/'
         ]
       specs:
@@ -34,7 +35,7 @@ module.exports = (grunt) ->
           'no_stand_alone_at': {level: 'error'}
           'no_backticks': {level: 'ignore'}
         files: [
-          src: ['lib/*.coffee', 'Gruntfile.coffee', 'specs/*.coffee']
+          src: ['src/*.coffee', 'Gruntfile.coffee', 'specs/*.coffee']
         ]
 
     jasmine_node:
@@ -43,10 +44,10 @@ module.exports = (grunt) ->
     watch:
       options: {atBegin: true}
       test:
-        files: ['Gruntfile.js', 'lib/**/*', 'specs/**/*']
+        files: ['Gruntfile.js', 'src/**/*', 'specs/**/*']
         tasks: ['test']
       lint:
-        files: ['Gruntfile.js', 'lib/**/*', 'specs/**/*']
+        files: ['Gruntfile.js', 'src/**/*', 'specs/**/*']
         tasks: ['lint']
 
     grunt.loadNpmTasks 'grunt-coffeelint'
