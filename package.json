@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "a dark, ancient toungue rarely spoken by civilized folk",
   "author": "Nathan Story <nathanielstory@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "main": "./build/lib/basiccrypt.coffee",
   "bin": {
       "basiccrypt": "./bin/cli.js"
