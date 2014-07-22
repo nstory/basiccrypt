@@ -58,4 +58,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-jasmine-node'
 
     grunt.registerTask 'lint', ['coffeelint']
-    grunt.registerTask 'test', ['clean', 'coffee', 'jasmine_node']
+    grunt.registerTask 'build', ['clean', 'coffee']
+    grunt.registerTask 'test', ['build', 'jasmine_node']

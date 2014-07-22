@@ -1,7 +1,7 @@
 {
   "name": "basiccrypt",
   "version": "0.0.1",
-  "description": "a dark, ancient toungue rarely spoken by civilized folk",
+  "description": "a dark, ancient tongue rarely spoken by civilized folk",
   "author": "Nathan Story <nathanielstory@gmail.com>",
   "license": "MIT",
   "main": "./build/lib/basiccrypt.coffee",
@@ -9,7 +9,8 @@
       "basiccrypt": "./bin/cli.js"
   },
   "scripts": {
-      "test": "grunt test"
+      "test": "grunt test",
+      "prepublish": "grunt build"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
