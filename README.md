@@ -25,3 +25,7 @@ basiccrypt hello.bas
 # output the BASIC program as Javascript
 basiccrypt --print hello.bas
 ```
+
+## TODO
+
+* Some sort of REPL
