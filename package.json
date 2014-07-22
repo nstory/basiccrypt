@@ -1,13 +1,13 @@
 {
   "name": "basiccrypt",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "0.0.1",
+  "description": "a dark, ancient toungue rarely spoken by civilized folk",
   "author": "Nathan Story <nathanielstory@gmail.com>",
   "license": "ISC",
+  "main": "./build/lib/basiccrypt.coffee",
+  "bin": {
+      "basiccrypt": "./build/lib/cli.js"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-coffeelint": "0.0.10",
